@@ -4,13 +4,15 @@ import Theme from '../styles/Theme';
 import Header from '../components/Header';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import DiaryImage from '../img/Bottombar/Delete.svg';
+import HeartIcon from '../img/Bottombar/heart.svg';
+import BeenHeartIcon from '../img/Bottombar/beenheart.svg';
 
 const Diary = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [diaries, setDiaries] = useState({});
   const [newDiary, setNewDiary] = useState('');
-  const [nickname, setNickname] = useState(''); // 닉네임 추가
+  const [nickname, setNickname] = useState('나');
+  const [liked, setLiked] = useState({});
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -19,23 +21,29 @@ const Diary = () => {
   const handleAddDiary = () => {
     const dateString = selectedDate.toDateString();
 
-    // 선택한 날짜의 기존 일기가 있으면 기존 배열에 추가, 없으면 새로운 배열 생성
     const updatedDiaries = diaries[dateString]
       ? [...diaries[dateString], { nickname, text: newDiary }]
       : [{ nickname, text: newDiary }];
 
     setDiaries({ ...diaries, [dateString]: updatedDiaries });
-    setNewDiary(''); // 입력된 일기 내용 초기화
-    setNickname(''); // 닉네임도 초기화
+    setNewDiary('');
+    setNickname('나');
+  };
+
+  const toggleHeart = (index) => {
+    setLiked((prevState) => ({
+      ...prevState,
+      [index]: !prevState[index],
+    }));
   };
 
   const tileClassName = ({ date, view }) => {
     if (view === 'month') {
       const day = date.getDay();
       if (day === 0) {
-        return 'sunday'; // 일요일 스타일
+        return 'sunday';
       } else if (day === 6) {
-        return 'saturday'; // 토요일 스타일
+        return 'saturday';
       }
     }
     return null;
@@ -56,33 +64,31 @@ const Diary = () => {
 
         <SelectedDate>{selectedDate.toLocaleDateString()}</SelectedDate>
 
-        {/* 선택한 날짜의 일기들이 있으면 출력 */}
         {diaries[selectedDate.toDateString()] && (
           <DiaryList>
             {diaries[selectedDate.toDateString()].map((diary, index) => (
               <DiaryCard key={index}>
+                <NicknameWrapper>{diary.nickname}</NicknameWrapper>
                 <DiaryContent>
-                  <DiaryTitle>{diary.nickname}의 일기</DiaryTitle>
                   <DiaryText>{diary.text}</DiaryText>
+                  <HeartIconWrapper onClick={() => toggleHeart(index)}>
+                    <HeartIconImage
+                      src={liked[index] ? BeenHeartIcon : HeartIcon}
+                      alt='heart'
+                    />
+                  </HeartIconWrapper>
                 </DiaryContent>
               </DiaryCard>
             ))}
           </DiaryList>
         )}
 
-        {/* 일기 추가 섹션 */}
         <AddDiaryWrapper>
-          <NicknameInput
-            type='text'
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-            placeholder='닉네임 입력'
-          />
           <AddDiaryInput
             type='text'
             value={newDiary}
             onChange={(e) => setNewDiary(e.target.value)}
-            placeholder='일기를 작성하세요'
+            placeholder='나의 일기를 추가해보세요.'
           />
           <AddButton onClick={handleAddDiary}>+</AddButton>
         </AddDiaryWrapper>
@@ -104,7 +110,7 @@ const Container = styled.div`
   align-items: center;
   min-height: 100vh;
   box-sizing: border-box;
-  border: 1px solid ${({ theme }) => theme.colors.Black};
+  overflow: hidden;
 `;
 
 const CalendarWrapper = styled.div`
@@ -118,17 +124,23 @@ const StyledCalendar = styled(Calendar)`
   width: 100%;
   max-width: 350px;
   border: none;
+  background-color: ${({ theme }) => theme.colors.white};
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 
   .react-calendar__navigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
   }
 
   .react-calendar__tile {
     padding: 15px 0;
     text-align: center;
+    font-size: 14px;
+    border-radius: 50%;
   }
 
   .react-calendar__tile--active {
@@ -144,6 +156,11 @@ const StyledCalendar = styled(Calendar)`
   .saturday {
     color: ${({ theme }) => theme.colors.blue};
   }
+
+  .react-calendar__tile--now {
+    background-color: ${({ theme }) => theme.colors.green5};
+    border-radius: 50%;
+  }
 `;
 
 const SelectedDate = styled.h3`
@@ -153,63 +170,98 @@ const SelectedDate = styled.h3`
 
 const DiaryList = styled.div`
   width: 100%;
-  max-height: 300px;
+  max-width: 400px;
+  max-height: 30vh;
   overflow-y: auto;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
 `;
 
 const DiaryCard = styled.div`
   display: flex;
-  width: 100%;
-  border: 1px solid ${({ theme }) => theme.colors.green1};
-  border-radius: 10px;
+  position: relative;
+  max-width: 400px;
+  height: 100px;
   padding: 15px;
   background-color: ${({ theme }) => theme.colors.lightGreen};
+  border-radius: 10px;
+  border: 1px solid ${({ theme }) => theme.colors.green1};
+  background: #ffffff;
+  border: 1px solid #b1ceb0;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+
   margin-bottom: 10px;
+`;
+
+const NicknameWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  background-color: ${({ theme }) => theme.colors.green4};
+  color: ${({ theme }) => theme.colors.white};
+  font-weight: bold;
+  padding: 5px 15px;
+  border-radius: 20px;
+
+  margin-bottom: 101px;
 `;
 
 const DiaryContent = styled.div`
   flex: 1;
-`;
-
-const DiaryTitle = styled.h4`
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  padding-top: 0;
+  margin-top: 10px;
 `;
 
 const DiaryText = styled.p`
   font-size: 14px;
   color: ${({ theme }) => theme.colors.black};
+  flex: 1;
+  word-break: break-word;
+`;
+
+const HeartIconWrapper = styled.div`
+  position: absolute;
+  bottom: 0px;
+  right: 10px;
+`;
+
+const HeartIconImage = styled.img`
+  width: 30px;
+  height: 30px;
 `;
 
 const AddDiaryWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 20px;
-  width: 100%;
-`;
 
-const NicknameInput = styled.input`
-  width: 20%;
+  width: 100%;
+  border-radius: 10px;
   padding: 10px;
-  font-size: 16px;
-  border: 1px solid ${({ theme }) => theme.colors.green1};
-  border-radius: 5px;
-  margin-right: 10px;
+  max-width: 400px;
+  background: #ffffff;
+  border: 1px solid #b1ceb0;
+  border-radius: 30px;
 `;
 
 const AddDiaryInput = styled.input`
   flex: 1;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid ${({ theme }) => theme.colors.green1};
-  border-radius: 5px;
-  margin-right: 10px;
+  border: none;
+  outline: none;
 `;
 
 const AddButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.green1};
+  background-color: ${({ theme }) => theme.colors.green2};
   color: ${({ theme }) => theme.colors.white};
   border: none;
   border-radius: 50%;
@@ -220,4 +272,5 @@ const AddButton = styled.button`
   align-items: center;
   font-size: 24px;
   cursor: pointer;
+  margin-left: 10px;
 `;
