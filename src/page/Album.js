@@ -101,9 +101,8 @@ const Container = styled.div`
 `;
 
 const SearchBarWrapper = styled.div`
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 0 10px;
+  width: 90%;
+  margin: 30px;
 `;
 
 const SearchInputWrapper = styled.div`
