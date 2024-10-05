@@ -4,11 +4,12 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import InputFilled from '../components/InputFilled';
 import BigButton from '../components/BigButton';
+import { Axios } from '../api/Axios';
 
 const Join = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const [nickname, setName] = useState('');
   const [familyCode, setFamilyCode] = useState('');
 
   const [emailError, setEmailError] = useState('');
@@ -86,7 +87,7 @@ const Join = () => {
   };
 
   const validateFamilyCode = (value) => {
-    const schema = Yup.string().required('가족코드를 입력하시오.');
+    const schema = Yup.string();
     schema
       .validate(value)
       .then(() => {
@@ -96,14 +97,44 @@ const Join = () => {
       })
       .catch((err) => {
         setFamilyCodeError(err.message);
-        setIsFamilyCodeValid(false);
+        // setIsFamilyCodeValid(false);
         setFamilyCodeSuccess('');
       });
   };
 
-  const handleSignup = () => {
-    if (isEmailValid && isPasswordValid && isNameValid && isFamilyCodeValid) {
-      navigate('/auth/login');
+  const handleSignup = async () => {
+    if (
+      isEmailValid &&
+      isPasswordValid &&
+      isNameValid &&
+      (familyCode === '' || isFamilyCodeValid)
+    ) {
+      try {
+        const data = {
+          email,
+          password,
+          nickname,
+        };
+
+        // 가족코드가 입력된 경우만 데이터에 포함
+        if (familyCode) {
+          data.familyCode = familyCode;
+        }
+
+        // Axios 인스턴스를 사용해 API 요청
+        const response = await Axios.post('/auth/signIn', data);
+
+        if (response.status === 201) {
+          // 회원가입 성공 후 로그인 페이지로 이동
+          navigate('/auth/login');
+        } else {
+          // 예상치 못한 응답 처리
+          console.error('Unexpected response:', response);
+        }
+      } catch (error) {
+        // API 호출 중 오류 처리
+        console.error('API error:', error);
+      }
     }
   };
 
@@ -158,7 +189,7 @@ const Join = () => {
             <InputFilled
               placeholder='닉네임'
               type='text'
-              value={name}
+              value={nickname}
               onChange={(e) => {
                 const value = e.target.value;
                 setName(value);
@@ -195,12 +226,7 @@ const Join = () => {
             />
             <ButtonContainer>
               <BigButton
-                disabled={
-                  !isEmailValid ||
-                  !isPasswordValid ||
-                  !isNameValid ||
-                  !isFamilyCodeValid
-                }
+                disabled={!isEmailValid || !isPasswordValid || !isNameValid}
                 onClick={handleSignup}
               >
                 회원가입

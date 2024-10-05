@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 import InputFilled from '../components/InputFilled';
 import BigButton from '../components/BigButton';
+import { Axios } from '../api/Axios';
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const navigate = useNavigate();
 
   const validateEmail = (value) => {
     const schema = Yup.string().matches(
@@ -47,11 +49,20 @@ const Login = () => {
       });
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (isEmailValid && isPasswordValid) {
-      console.log('로그인 시도 - 이메일:', email, '비밀번호:', password);
-    } else {
-      console.log('로그인 조건이 만족되지 않았습니다.');
+      try {
+        const response = await Axios.post(`/auth/login`, {
+          email,
+          password,
+        });
+        console.log('로그인 응답:', response.data);
+        localStorage.setItem('isLoggedIn', 'true');
+        setIsLoggedIn(true);
+        navigate('/home');
+      } catch (error) {
+        console.error('로그인 실패', error);
+      }
     }
   };
 
