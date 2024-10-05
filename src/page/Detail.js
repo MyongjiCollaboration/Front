@@ -109,7 +109,7 @@ const ProfileSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 40px;
+  margin: 100px;
 `;
 
 const ProfileImage = styled.img`
@@ -176,11 +176,10 @@ const SaveText = styled.p`
   width: 100%;
   font-size: 16px;
   font-weight: bold;
-  color: ${({ theme, disabled }) =>
-    disabled ? '#ccc' : theme.colors.green3}; /* 텍스트 색상 변경 */
+  color: ${({ theme }) => theme.colors.green3};
   text-align: right;
   margin: 0;
-  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  cursor: ${({ disabled }) => (disabled ? '' : 'pointer')};
 `;
 
 export default Detail;
