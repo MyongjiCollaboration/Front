@@ -32,7 +32,7 @@ const BottomNav = () => {
       case '/home':
         updateTab('home');
         break;
-      case '/Album':
+      case '/albumList':
         updateTab('Album');
         break;
       case '/payment':
@@ -78,7 +78,7 @@ const BottomNav = () => {
         <NavItem
           data-tab='Album'
           isActive={activeTab === 'Album'}
-          onClick={() => handleClick('Album', '/Album')}
+          onClick={() => handleClick('Album', '/albumList')}
         >
           <Icon src={AlbumIcon} alt='앨범' isActive={activeTab === 'Album'} />
           <NavLabel isActive={activeTab === 'Album'}>앨범</NavLabel>
