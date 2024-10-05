@@ -57,9 +57,16 @@ const Login = ({ setIsLoggedIn }) => {
           password,
         });
         console.log('로그인 응답:', response.data);
-        localStorage.setItem('isLoggedIn', 'true');
-        setIsLoggedIn(true);
-        navigate('/home');
+
+        if (response.status === 200) {
+          // 로그인 성공 시 처리
+          document.cookie = `token=${response.data.token}; path=/;`;
+          localStorage.setItem('isLoggedIn', 'true');
+          setIsLoggedIn && setIsLoggedIn(true); // setIsLoggedIn이 정의되어 있으면 호출
+          navigate('/home'); // 로그인 성공 후 /home으로 이동
+        } else {
+          console.error('로그인 실패', response);
+        }
       } catch (error) {
         console.error('로그인 실패', error);
       }
