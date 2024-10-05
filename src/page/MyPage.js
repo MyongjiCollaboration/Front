@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import Logo from '../img/Bottombar/Logo.svg';
 import MyProfile from '../img/Bottombar/Myprofile.svg';
 import Mydiary from '../img/Bottombar/Mydiary.svg';
@@ -18,7 +19,7 @@ const MyPage = () => {
         <ProfileImage src={MyProfile} alt='프로필 이미지' />
         <ProfileText>
           <UserName>김명지</UserName>
-          <FamilyCode>가족이름(가족코드)</FamilyCode>
+          <FamilyCode>가족 이름(가족코드)</FamilyCode>
         </ProfileText>
       </ProfileSection>
       <MenuList>
@@ -26,9 +27,9 @@ const MyPage = () => {
           <MenuIcon src={Mydiary} alt='내가 작성한 일기' />
           <MenuText>내가 작성한 일기</MenuText>
         </MenuItem>
-        <MenuItem>
-          <MenuIcon src={Profilechange} alt='프로필 수정' />
-          <MenuText>프로필 수정</MenuText>
+        <MenuItem as={Link} to='/family-name-edit'>
+          <MenuIcon src={Profilechange} alt='가족 이름 수정' />
+          <MenuText>가족 이름 수정</MenuText>
         </MenuItem>
         <MenuItem>
           <MenuIcon src={Logout} alt='로그아웃' />
@@ -44,14 +45,12 @@ const MyPage = () => {
         <FooterText>
           Developed By 멋쟁이사자처럼 대학교 12기
           <br />
-          명지대 인문, 자연 연합 명지트 4조
+          명지대 인문 X 자연 명지톤 4조
         </FooterText>
       </Footer>
     </Container>
   );
 };
-
-export default MyPage;
 
 const Container = styled.div`
   display: flex;
@@ -134,7 +133,7 @@ const MenuItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 90%;
+  width: 100%;
   max-width: 400px;
   padding: 16px;
   border: 2px solid ${({ theme }) => theme.colors.green4};
@@ -142,6 +141,8 @@ const MenuItem = styled.div`
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   background-color: #fff;
+  text-decoration: none;
+  color: inherit;
 
   &:hover {
     background-color: #f0f0f0;
@@ -180,3 +181,5 @@ const FooterText = styled.p`
   margin: 0;
   text-align: left;
 `;
+
+export default MyPage;
