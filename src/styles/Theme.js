@@ -1,5 +1,4 @@
 import { css } from 'styled-components';
-
 export const Theme = {
   fonts: {
     mainTitle: css`
@@ -47,6 +46,9 @@ export const Theme = {
     green5: '#afd9ae',
     green6: '#bce6bb',
     green7: '#c9f3c7',
+    Black: '#000000',
+    white: '#FFFFFF',
+    gray: '#808080',
   },
   breakpoints: {
     mobile: '480px',
@@ -54,3 +56,5 @@ export const Theme = {
     desktop: '1024px',
   },
 };
+
+export default Theme;
