@@ -4,7 +4,7 @@ import Theme from '../styles/Theme';
 import MagnifierIcon from '../img/Bottombar/Magnifier.svg';
 import DeleteIcon from '../img/Bottombar/delete.png';
 
-const Album = () => {
+const AlbumDetail = () => {
   const [albums, setAlbums] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const fileInputRef = useRef(null);
@@ -84,7 +84,7 @@ const Album = () => {
   );
 };
 
-export default Album;
+export default AlbumDetail;
 
 // Styled Components
 const Container = styled.div`

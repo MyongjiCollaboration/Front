@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
 import Login from './page/Login.js';
-import Album from './page/Album.js';
-import Home from './page/home.js';
+import AlbumDetail from './page/AlbumDetail.js';
+import AlbumList from './page/AlbumList.js';
+import Home from './page/Home.js';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BottomNav from './components/BottomNav.js';
 import { ThemeProvider } from 'styled-components';
@@ -16,7 +17,8 @@ function App() {
           <Routes>
             <Route path='/' element={<Login />} />
             <Route path='/home' element={<Home />} />
-            <Route path='/album' element={<Album />} />
+            <Route path='/albumList' element={<AlbumList />} />
+            <Route path='/albumDetail' element={<AlbumDetail />} />
           </Routes>
         </div>
         <BottomNav />

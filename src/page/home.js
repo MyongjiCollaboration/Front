@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import Theme from '../styles/Theme';
+import Theme from '../styles/Theme.js';
 import Header from '../components/Header.js';
 
 const Home = () => {
