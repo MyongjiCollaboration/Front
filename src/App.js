@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Login from './page/Login.js';
 import { BrowserRouter as Router } from 'react-router-dom';
-import BottomNav from './page/BottomNav.js';
+import BottomNav from './components/BottomNav.js';
 import { ThemeProvider } from 'styled-components';
 import { Theme } from './styles/Theme.js';
 

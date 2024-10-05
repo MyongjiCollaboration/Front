@@ -5,7 +5,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Theme from '../styles/Theme';
-import BottomNav from './BottomNav.js';
+import BottomNav from '../components/BottomNav.js';
 
 const schemaLogin = yup.object().shape({
   email: yup
