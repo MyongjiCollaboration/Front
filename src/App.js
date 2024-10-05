@@ -11,6 +11,7 @@ import { ThemeProvider } from 'styled-components';
 import { Theme } from './styles/Theme.js';
 import Join from './page/Join.js';
 import MyPage from './page/MyPage.js';
+import Detail from './page/Detail.js';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path='/albumDetail/:id' element={<AlbumDetail />} />
             <Route path='/auth/signin' element={<Join />} />
             <Route path='/mypage' element={<MyPage />} />
+            <Route path='/family-name-edit' element={<Detail />} />
           </Routes>
         </div>
         <BottomNav />
