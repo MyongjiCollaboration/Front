@@ -41,7 +41,9 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+  @media (min-width: ${({ theme }) =>
+    theme.breakpoints.mobile}) and (max-width: ${({ theme }) =>
+  theme.breakpoints.tablet}) {
     body {
       font-size: 16px;
     }

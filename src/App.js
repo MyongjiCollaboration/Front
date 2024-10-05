@@ -13,7 +13,11 @@ function App() {
       <ThemeProvider theme={Theme}>
         <div className='App'>
           <Routes>
+<<<<<<< HEAD
             <Route path='/home' element={<Login />} />
+=======
+            <Route path='/' element={<Login />} />
+>>>>>>> 25516e1241473cecbe154f03889c9aa5cb16fd78
             <Route path='/album' element={<Album />} />
           </Routes>
         </div>
