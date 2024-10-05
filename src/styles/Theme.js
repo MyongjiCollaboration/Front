@@ -51,6 +51,7 @@ export const Theme = {
     white: '#FFFFFF',
     gray: '#808080',
     red: '#FD0103',
+    blue: 'blue',
   },
   breakpoints: {
     mobile: '480px',

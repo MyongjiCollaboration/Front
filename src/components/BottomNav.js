@@ -35,14 +35,14 @@ const BottomNav = () => {
       case '/albumList':
         updateTab('Album');
         break;
-      case '/payment':
-        updateTab('payment');
+      case '/diary':
+        updateTab('diary');
         break;
-      case '/store':
-        updateTab('store');
+      case '/schedule':
+        updateTab('schedule');
         break;
-      case '/menu':
-        updateTab('menu');
+      case '/mypage':
+        updateTab('mypage');
         break;
       default:
         setActiveTab(null);
@@ -63,13 +63,13 @@ const BottomNav = () => {
     <ThemeProvider theme={Theme}>
       <BottomNavContainer ref={navRef}>
         <NavItem
-          data-tab='payment'
-          isActive={activeTab === 'payment'}
-          onClick={() => handleClick('payment', '/payment')}
+          data-tab='diary'
+          isActive={activeTab === 'diary'}
+          onClick={() => handleClick('diary', '/diary')}
         >
-          <Icon src={Diary} alt='일기장' isActive={activeTab === 'payment'} />
-          <NavLabel isActive={activeTab === 'payment'}>일기장</NavLabel>
-          {activeTab === 'payment' && (
+          <Icon src={Diary} alt='일기장' isActive={activeTab === 'diary'} />
+          <NavLabel isActive={activeTab === 'diary'}>일기장</NavLabel>
+          {activeTab === 'diary' && (
             <IndicatorContainer>
               <Light isActive={showYellowGlow} />
             </IndicatorContainer>
@@ -102,26 +102,30 @@ const BottomNav = () => {
           )}
         </NavItem>
         <NavItem
-          data-tab='store'
-          isActive={activeTab === 'store'}
-          onClick={() => handleClick('store', '/store')}
+          data-tab='schedule'
+          isActive={activeTab === 'schedule'}
+          onClick={() => handleClick('schedule', '/schedule')}
         >
-          <Icon src={Schedule} alt='일정' isActive={activeTab === 'store'} />
-          <NavLabel isActive={activeTab === 'store'}>일정</NavLabel>
-          {activeTab === 'store' && (
+          <Icon src={Schedule} alt='일정' isActive={activeTab === 'schedule'} />
+          <NavLabel isActive={activeTab === 'schedule'}>일정</NavLabel>
+          {activeTab === 'schedule' && (
             <IndicatorContainer>
               <Light isActive={showYellowGlow} />
             </IndicatorContainer>
           )}
         </NavItem>
         <NavItem
-          data-tab='menu'
-          isActive={activeTab === 'menu'}
-          onClick={() => handleClick('menu', '/menu')}
+          data-tab='mypage'
+          isActive={activeTab === 'mypage'}
+          onClick={() => handleClick('mypage', '/mypage')}
         >
-          <Icon src={Mypage} alt='마이페이지' isActive={activeTab === 'menu'} />
-          <NavLabel isActive={activeTab === 'menu'}>마이페이지</NavLabel>
-          {activeTab === 'menu' && (
+          <Icon
+            src={Mypage}
+            alt='마이페이지'
+            isActive={activeTab === 'mypage'}
+          />
+          <NavLabel isActive={activeTab === 'mypage'}>마이페이지</NavLabel>
+          {activeTab === 'mypage' && (
             <IndicatorContainer>
               <Light isActive={showYellowGlow} />
             </IndicatorContainer>
