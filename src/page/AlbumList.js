@@ -1,22 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { Axios } from '../api/Axios';
 
 const AlbumList = () => {
   const navigate = useNavigate();
-
-  const [albums, setAlbums] = useState([
-    { id: 1, title: '여름 휴가' },
-    { id: 2, title: '가족 모임' },
-    { id: 3, title: '친구들과의 추억' },
-    { id: 4, title: '새해 첫날' },
-  ]);
-
+  const [albums, setAlbums] = useState([]);
   const [newAlbumTitle, setNewAlbumTitle] = useState('');
   const [isAdding, setIsAdding] = useState(false);
 
+  const fetchAlbumList = async () => {
+    try {
+      const response = await Axios.get('/api/album/list');
+      setAlbums(response.data);
+    } catch (error) {
+      console.error('앨범 리스트를 불러오는 데 실패했습니다.', error);
+    }
+  };
+
+  // 컴포넌트 마운트 시 앨범 리스트 불러오기
+  useEffect(() => {
+    fetchAlbumList();
+  }, []);
+
   const handleAlbumClick = (id) => {
-    navigate(`/albumDetail/${id}`);
+    navigate(`/albumDetail/${id}`); // 앨범 클릭 시 앨범 상세 페이지로 이동
   };
 
   const handleAddClick = () => {
@@ -44,11 +52,18 @@ const AlbumList = () => {
     <Container>
       <Title>내 앨범 목록</Title>
       <AlbumListWrapper>
-        {albums.map((album) => (
-          <AlbumItem key={album.id} onClick={() => handleAlbumClick(album.id)}>
-            {album.title}
-          </AlbumItem>
-        ))}
+        {albums.length > 0 ? (
+          albums.map((album) => (
+            <AlbumItem
+              key={album.id}
+              onClick={() => handleAlbumClick(album.id)}
+            >
+              {album.name}
+            </AlbumItem>
+          ))
+        ) : (
+          <p>앨범이 없습니다.</p>
+        )}
 
         {isAdding ? (
           <AddAlbumForm onSubmit={handleAddAlbum}>
@@ -81,7 +96,7 @@ const Container = styled.div`
   align-items: center;
   min-height: 100vh;
   box-sizing: border-box;
-  border: 1px solid ${({ theme }) => theme.colors.Black};
+  border: 1px solid ${({ theme }) => theme.colors.black};
 `;
 
 const Title = styled.h2`
