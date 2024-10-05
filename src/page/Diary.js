@@ -18,6 +18,8 @@ const Diary = () => {
   };
 
   const handleAddDiary = () => {
+    if (!newDiary.trim()) return;
+
     const dateString = selectedDate.toDateString();
 
     const updatedDiaries = diaries[dateString]
@@ -27,6 +29,12 @@ const Diary = () => {
     setDiaries({ ...diaries, [dateString]: updatedDiaries });
     setNewDiary('');
     setNickname('나');
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleAddDiary();
+    }
   };
 
   const toggleHeart = (index) => {
@@ -86,11 +94,13 @@ const Diary = () => {
             type='text'
             value={newDiary}
             onChange={(e) => setNewDiary(e.target.value)}
+            onKeyPress={handleKeyPress}
             placeholder='나의 일기를 추가해보세요.'
           />
           <AddButton onClick={handleAddDiary}>+</AddButton>
         </AddDiaryWrapper>
-        {<BeenContainer></BeenContainer>}
+        <BeenContainer></BeenContainer>
+        <BeenContainer></BeenContainer>
       </Container>
     </ThemeProvider>
   );
@@ -127,7 +137,7 @@ const SelectedDate = styled.h3`
 const DiaryList = styled.div`
   width: 100%;
   max-width: 400px;
-  max-height: 200px;
+
   overflow-y: auto;
   margin-bottom: 20px;
   display: flex;
@@ -139,7 +149,6 @@ const DiaryCard = styled.div`
   display: flex;
   position: relative;
   max-width: 400px;
-  height: 100px;
   padding: 15px;
   background-color: ${({ theme }) => theme.colors.lightGreen};
   border-radius: 10px;
@@ -169,7 +178,6 @@ const DiaryContent = styled.div`
   align-items: flex-start;
   width: 100%;
   padding-top: 0;
-  margin-top: 10px;
 `;
 
 const DiaryText = styled.p`
@@ -226,5 +234,5 @@ const AddButton = styled.button`
 `;
 
 const BeenContainer = styled.div`
-  margin-top: 20px;
+  margin-top: 30px;
 `;

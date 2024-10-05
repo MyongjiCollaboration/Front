@@ -14,6 +14,7 @@ const Schedule = () => {
   };
 
   const handleAddSchedule = () => {
+    if (!newSchedule.trim()) return;
     const dateString = selectedDate.toLocaleDateString();
     const updatedSchedules = [
       ...schedules,
@@ -22,6 +23,12 @@ const Schedule = () => {
 
     setSchedules(updatedSchedules);
     setNewSchedule('');
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleAddSchedule();
+    }
   };
 
   const filteredSchedules = schedules.filter(
@@ -58,12 +65,13 @@ const Schedule = () => {
             type='text'
             value={newSchedule}
             onChange={(e) => setNewSchedule(e.target.value)}
+            onKeyPress={handleKeyPress}
             placeholder='새로운 일정을 추가해보세요.'
           />
           <AddButton onClick={handleAddSchedule}>+</AddButton>
         </AddScheduleWrapper>
 
-        {<BeenContainer></BeenContainer>}
+        <BeenContainer></BeenContainer>
       </Container>
     </ThemeProvider>
   );
@@ -101,11 +109,11 @@ const UpcomingTitle = styled.h3`
 const ScheduleList = styled.div`
   width: 100%;
   max-width: 400px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;
-  max-height: 150px;
   overflow-y: auto;
 `;
 
@@ -165,5 +173,5 @@ const AddButton = styled.button`
 `;
 
 const BeenContainer = styled.div`
-  margin-top: 20px;
+  margin: 30px;
 `;
