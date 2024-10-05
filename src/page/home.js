@@ -1,223 +1,183 @@
 import React, { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import Theme from '../styles/Theme';
-import Header from '../components/Header';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import DiaryImage from '../img/Bottombar/Delete.svg';
+import Theme from '../styles/Theme.js';
+import Header from '../components/Header.js';
 
-const Diary = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [diaries, setDiaries] = useState({});
-  const [newDiary, setNewDiary] = useState('');
-  const [nickname, setNickname] = useState(''); // 닉네임 추가
+const Home = () => {
+  const [inputValue, setInputValue] = useState('');
+  const [answers, setAnswers] = useState([
+    { nickname: '아빠', answer: '윤도현 - 사랑했나봐' },
+    { nickname: '엄마', answer: 'YB - 흰수염고래' },
+    { nickname: '아들', answer: '아빠 미안해...' },
+    { nickname: '딸', answer: '윤도현 노래?' },
+  ]);
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
   };
 
-  const handleAddDiary = () => {
-    const dateString = selectedDate.toDateString();
-
-    // 선택한 날짜의 기존 일기가 있으면 기존 배열에 추가, 없으면 새로운 배열 생성
-    const updatedDiaries = diaries[dateString]
-      ? [...diaries[dateString], { nickname, text: newDiary }]
-      : [{ nickname, text: newDiary }];
-
-    setDiaries({ ...diaries, [dateString]: updatedDiaries });
-    setNewDiary(''); // 입력된 일기 내용 초기화
-    setNickname(''); // 닉네임도 초기화
-  };
-
-  const tileClassName = ({ date, view }) => {
-    if (view === 'month') {
-      const day = date.getDay();
-      if (day === 0) {
-        return 'sunday'; // 일요일 스타일
-      } else if (day === 6) {
-        return 'saturday'; // 토요일 스타일
-      }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (inputValue.trim()) {
+      setAnswers([...answers, { nickname: '나', answer: inputValue }]);
+      setInputValue('');
     }
-    return null;
   };
 
   return (
     <ThemeProvider theme={Theme}>
       <Container>
-        <Header title='일기장' />
-        <CalendarWrapper>
-          <StyledCalendar
-            onChange={handleDateChange}
-            value={selectedDate}
-            locale='ko-KR'
-            tileClassName={tileClassName}
-          />
-        </CalendarWrapper>
-
-        <SelectedDate>{selectedDate.toLocaleDateString()}</SelectedDate>
-
-        {/* 선택한 날짜의 일기들이 있으면 출력 */}
-        {diaries[selectedDate.toDateString()] && (
-          <DiaryList>
-            {diaries[selectedDate.toDateString()].map((diary, index) => (
-              <DiaryCard key={index}>
-                <DiaryContent>
-                  <DiaryTitle>{diary.nickname}의 일기</DiaryTitle>
-                  <DiaryText>{diary.text}</DiaryText>
-                </DiaryContent>
-              </DiaryCard>
+        <Header title='퀴즈' /> <DateText>2024년 10월 5일 토요일</DateText>
+        <QuestionBox>
+          <QuestionLabel>문제</QuestionLabel>
+          <QuestionText>아빠가 가장 좋아하는 노래는?</QuestionText>
+        </QuestionBox>
+        <AnswerBox>
+          <AnswerLabel>답변</AnswerLabel>
+          <AnswerList>
+            {answers.map((answer, index) => (
+              <AnswerItem key={index}>
+                <Nickname>{answer.nickname}</Nickname>
+                <AnswerText>{answer.answer}</AnswerText>
+              </AnswerItem>
             ))}
-          </DiaryList>
-        )}
-
-        {/* 일기 추가 섹션 */}
-        <AddDiaryWrapper>
-          <NicknameInput
+          </AnswerList>
+        </AnswerBox>
+        <InputForm onSubmit={handleSubmit}>
+          <InputField
             type='text'
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-            placeholder='닉네임 입력'
+            value={inputValue}
+            onChange={handleInputChange}
+            placeholder='입력'
           />
-          <AddDiaryInput
-            type='text'
-            value={newDiary}
-            onChange={(e) => setNewDiary(e.target.value)}
-            placeholder='일기를 작성하세요'
-          />
-          <AddButton onClick={handleAddDiary}>+</AddButton>
-        </AddDiaryWrapper>
+          <SubmitButton type='submit'>입력</SubmitButton>
+        </InputForm>
       </Container>
     </ThemeProvider>
   );
 };
 
-export default Diary;
+export default Home;
 
 // Styled Components
 const Container = styled.div`
-  width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  background-color: ${({ theme }) => theme.colors.white};
   box-sizing: border-box;
   border: 1px solid ${({ theme }) => theme.colors.Black};
 `;
 
-const CalendarWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
+const DateText = styled.div`
+  font-size: 16px;
+  color: ${({ theme }) => theme.colors.gray};
   margin-bottom: 20px;
 `;
 
-const StyledCalendar = styled(Calendar)`
+const QuestionBox = styled.div`
   width: 100%;
-  max-width: 350px;
-  border: none;
-
-  .react-calendar__navigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-
-  .react-calendar__tile {
-    padding: 15px 0;
-    text-align: center;
-  }
-
-  .react-calendar__tile--active {
-    background-color: ${({ theme }) => theme.colors.green1};
-    color: white;
-    border-radius: 50%;
-  }
-
-  .sunday {
-    color: ${({ theme }) => theme.colors.red};
-  }
-
-  .saturday {
-    color: ${({ theme }) => theme.colors.blue};
-  }
-`;
-
-const SelectedDate = styled.h3`
-  font-size: 18px;
+  border: 1px solid ${({ theme }) => theme.colors.green1};
+  border-radius: 8px;
+  padding: 15px;
   margin-bottom: 20px;
+  background-color: ${({ theme }) => theme.colors.lightGreen};
 `;
 
-const DiaryList = styled.div`
+const QuestionLabel = styled.div`
+  font-size: 14px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.green2};
+  margin-bottom: 10px;
+`;
+
+const QuestionText = styled.div`
+  font-size: 16px;
+  color: ${({ theme }) => theme.colors.black};
+`;
+
+const AnswerBox = styled.div`
   width: 100%;
-  max-height: 300px;
+  height: 40vh;
+  border: 1px solid ${({ theme }) => theme.colors.green1};
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: ${({ theme }) => theme.colors.lightGreen};
   overflow-y: auto;
-  margin-bottom: 20px;
 `;
 
-const DiaryCard = styled.div`
+const AnswerLabel = styled.div`
+  font-size: 14px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.green2};
+  margin-bottom: 10px;
+`;
+
+const AnswerList = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const AnswerItem = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+const Nickname = styled.div`
+  font-size: 14px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.green4};
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-right: 10px;
+`;
+
+const AnswerText = styled.div`
+  font-size: 14px;
+  color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.white};
+  border: 1px solid ${({ theme }) => theme.colors.green1};
+  padding: 5px 15px;
+  border-radius: 20px;
+`;
+
+const InputForm = styled.form`
   display: flex;
   width: 100%;
   border: 1px solid ${({ theme }) => theme.colors.green1};
-  border-radius: 10px;
+  border-radius: 8px;
+  background-color: ${({ theme }) => theme.colors.white};
+  position: sticky;
+  bottom: 0;
   padding: 15px;
-  background-color: ${({ theme }) => theme.colors.lightGreen};
-  margin-bottom: 10px;
 `;
 
-const DiaryContent = styled.div`
+const InputField = styled.input`
   flex: 1;
-`;
-
-const DiaryTitle = styled.h4`
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 10px;
-`;
-
-const DiaryText = styled.p`
+  border: none;
+  outline: none;
+  padding: 5px;
   font-size: 14px;
   color: ${({ theme }) => theme.colors.black};
 `;
 
-const AddDiaryWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
-  width: 100%;
-`;
-
-const NicknameInput = styled.input`
-  width: 20%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid ${({ theme }) => theme.colors.green1};
-  border-radius: 5px;
-  margin-right: 10px;
-`;
-
-const AddDiaryInput = styled.input`
-  flex: 1;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid ${({ theme }) => theme.colors.green1};
-  border-radius: 5px;
-  margin-right: 10px;
-`;
-
-const AddButton = styled.button`
+const SubmitButton = styled.button`
   background-color: ${({ theme }) => theme.colors.green1};
   color: ${({ theme }) => theme.colors.white};
   border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
+  border-radius: 8px;
+  padding: 5px 15px;
   cursor: pointer;
+  font-size: 14px;
+  margin-left: 10px;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.green2};
+  }
 `;
