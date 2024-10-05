@@ -63,13 +63,14 @@ export default Home;
 const Container = styled.div`
   max-width: 600px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
   background-color: ${({ theme }) => theme.colors.white};
   box-sizing: border-box;
+  border: 1px solid ${({ theme }) => theme.colors.Black};
 `;
 
 const DateText = styled.div`
@@ -101,7 +102,7 @@ const QuestionText = styled.div`
 
 const AnswerBox = styled.div`
   width: 100%;
-  height: 50vh;
+  height: 40vh;
   border: 1px solid ${({ theme }) => theme.colors.green1};
   border-radius: 8px;
   padding: 15px;
@@ -152,10 +153,10 @@ const InputForm = styled.form`
   width: 100%;
   border: 1px solid ${({ theme }) => theme.colors.green1};
   border-radius: 8px;
-  padding: 10px;
   background-color: ${({ theme }) => theme.colors.white};
   position: sticky;
   bottom: 0;
+  padding: 15px;
 `;
 
 const InputField = styled.input`
