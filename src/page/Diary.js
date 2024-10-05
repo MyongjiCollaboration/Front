@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import Theme from '../styles/Theme';
 import Header from '../components/Header';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import CalendarComponent from '../components/Calender.js';
 import HeartIcon from '../img/Bottombar/heart.svg';
 import BeenHeartIcon from '../img/Bottombar/beenheart.svg';
 
@@ -54,10 +53,9 @@ const Diary = () => {
       <Container>
         <Header title='일기장' />
         <CalendarWrapper>
-          <StyledCalendar
+          <CalendarComponent
             onChange={handleDateChange}
             value={selectedDate}
-            locale='ko-KR'
             tileClassName={tileClassName}
           />
         </CalendarWrapper>
@@ -92,6 +90,7 @@ const Diary = () => {
           />
           <AddButton onClick={handleAddDiary}>+</AddButton>
         </AddDiaryWrapper>
+        {<BeenContainer></BeenContainer>}
       </Container>
     </ThemeProvider>
   );
@@ -120,49 +119,6 @@ const CalendarWrapper = styled.div`
   margin-bottom: 20px;
 `;
 
-const StyledCalendar = styled(Calendar)`
-  width: 100%;
-  max-width: 350px;
-  border: none;
-  background-color: ${({ theme }) => theme.colors.white};
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-
-  .react-calendar__navigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    font-size: 16px;
-  }
-
-  .react-calendar__tile {
-    padding: 15px 0;
-    text-align: center;
-    font-size: 14px;
-    border-radius: 50%;
-  }
-
-  .react-calendar__tile--active {
-    background-color: ${({ theme }) => theme.colors.green1};
-    color: white;
-    border-radius: 50%;
-  }
-
-  .sunday {
-    color: ${({ theme }) => theme.colors.red};
-  }
-
-  .saturday {
-    color: ${({ theme }) => theme.colors.blue};
-  }
-
-  .react-calendar__tile--now {
-    background-color: ${({ theme }) => theme.colors.green5};
-    border-radius: 50%;
-  }
-`;
-
 const SelectedDate = styled.h3`
   font-size: 18px;
   margin-bottom: 20px;
@@ -171,13 +127,12 @@ const SelectedDate = styled.h3`
 const DiaryList = styled.div`
   width: 100%;
   max-width: 400px;
-  max-height: 30vh;
+  max-height: 200px;
   overflow-y: auto;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  height: 100%;
 `;
 
 const DiaryCard = styled.div`
@@ -193,8 +148,6 @@ const DiaryCard = styled.div`
   border: 1px solid #b1ceb0;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
-
-  margin-bottom: 10px;
 `;
 
 const NicknameWrapper = styled.div`
@@ -207,8 +160,6 @@ const NicknameWrapper = styled.div`
   font-weight: bold;
   padding: 5px 15px;
   border-radius: 20px;
-
-  margin-bottom: 101px;
 `;
 
 const DiaryContent = styled.div`
@@ -242,7 +193,6 @@ const HeartIconImage = styled.img`
 const AddDiaryWrapper = styled.div`
   display: flex;
   align-items: center;
-
   width: 100%;
   border-radius: 10px;
   padding: 10px;
@@ -273,4 +223,8 @@ const AddButton = styled.button`
   font-size: 24px;
   cursor: pointer;
   margin-left: 10px;
+`;
+
+const BeenContainer = styled.div`
+  margin-top: 20px;
 `;
