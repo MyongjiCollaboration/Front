@@ -18,7 +18,7 @@ function App() {
             <Route path='/' element={<Login />} />
             <Route path='/home' element={<Home />} />
             <Route path='/albumList' element={<AlbumList />} />
-            <Route path='/albumDetail' element={<AlbumDetail />} />
+            <Route path='/albumDetail/:id' element={<AlbumDetail />} />
           </Routes>
         </div>
         <BottomNav />
