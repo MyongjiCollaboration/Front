@@ -120,6 +120,7 @@ const Container = styled.div`
   min-height: 100vh;
   box-sizing: border-box;
   overflow: hidden;
+  border: 1px solid ${({ theme }) => theme.colors.Black};
 `;
 
 const CalendarWrapper = styled.div`

@@ -90,7 +90,7 @@ const Container = styled.div`
   align-items: center;
   min-height: 100vh;
   box-sizing: border-box;
-  background-color: #f4f4f4;
+  border: 1px solid ${({ theme }) => theme.colors.Black};
 `;
 
 const CalendarWrapper = styled.div`
