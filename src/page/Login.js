@@ -91,9 +91,7 @@ const Login = () => {
             }
           }}
           hint={
-            passwordError
-              ? ''
-              : '영문, 숫자, 특수문자를 조합하여 8~14글자로 입력하시오.'
+            passwordError ? '' : ' 8~14글자로 입력하시오.(영문, 숫자, 특수문자)'
           }
           error={passwordError}
         />

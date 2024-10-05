@@ -66,11 +66,10 @@ const Join = () => {
       });
   };
 
-  // 닉네임 유효성 검사
   const validateName = (value) => {
     const schema = Yup.string().matches(
       /^[a-zA-Z가-힣]{3,10}$/,
-      '사용할 닉네임(3~10자)을 입력하시오.(특수기호 사용불가)'
+      '잘못된 형식의 닉네임입니다.'
     );
     schema
       .validate(value)
@@ -151,7 +150,7 @@ const Join = () => {
               hint={
                 passwordError
                   ? ''
-                  : '영문, 숫자, 특수문자를 조합하여 8~14글자로 입력하시오.'
+                  : '8~14글자로 입력하시오.(영문, 숫자, 특수문자)'
               }
               error={passwordError}
               success={passwordSuccess}
@@ -171,11 +170,7 @@ const Join = () => {
                   validateName(value);
                 }
               }}
-              hint={
-                nameError
-                  ? ''
-                  : '사용할 닉네임(3~10자)을 입력하시오.(특수기호 사용 불가)'
-              }
+              hint={nameError ? '' : '3~10자을 입력하시오.(특수기호 사용 불가)'}
               error={nameError}
               success={nameSuccess}
             />
