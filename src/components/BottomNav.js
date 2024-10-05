@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled, { css, ThemeProvider } from 'styled-components';
 import HomeIcon from '../img/Bottombar/Home.svg';
-import inventoryIcon from '../img/Bottombar/inventory.svg';
-import PaymentDetailIcon from '../img/Bottombar/PaymentDetail.svg';
-import StoreIcon from '../img/Bottombar/Store.svg';
-import MenuIcon from '../img/Bottombar/Menu.svg';
+import AlbumIcon from '../img/Bottombar/Album.svg';
+import Diary from '../img/Bottombar/Diary.svg';
+import Schedule from '../img/Bottombar/Schedule.svg';
+import Mypage from '../img/Bottombar/Mypage.svg';
 import Theme from '../styles/Theme.js';
 
 const BottomNav = () => {
@@ -32,8 +32,8 @@ const BottomNav = () => {
       case '/home':
         updateTab('home');
         break;
-      case '/inventory':
-        updateTab('inventory');
+      case '/Album':
+        updateTab('Album');
         break;
       case '/payment':
         updateTab('payment');
@@ -63,34 +63,26 @@ const BottomNav = () => {
     <ThemeProvider theme={Theme}>
       <BottomNavContainer ref={navRef}>
         <NavItem
-          data-tab='inventory'
-          isActive={activeTab === 'inventory'}
-          onClick={() => handleClick('inventory', '/inventory')}
+          data-tab='payment'
+          isActive={activeTab === 'payment'}
+          onClick={() => handleClick('payment', '/payment')}
         >
-          <Icon
-            src={inventoryIcon}
-            alt='인벤토리'
-            isActive={activeTab === 'inventory'}
-          />
-          <NavLabel isActive={activeTab === 'inventory'}>인벤토리</NavLabel>
-          {activeTab === 'inventory' && (
+          <Icon src={Diary} alt='일기장' isActive={activeTab === 'payment'} />
+          <NavLabel isActive={activeTab === 'payment'}>일기장</NavLabel>
+          {activeTab === 'payment' && (
             <IndicatorContainer>
               <Light isActive={showYellowGlow} />
             </IndicatorContainer>
           )}
         </NavItem>
         <NavItem
-          data-tab='payment'
-          isActive={activeTab === 'payment'}
-          onClick={() => handleClick('payment', '/payment')}
+          data-tab='Album'
+          isActive={activeTab === 'Album'}
+          onClick={() => handleClick('Album', '/Album')}
         >
-          <Icon
-            src={PaymentDetailIcon}
-            alt='결제내역'
-            isActive={activeTab === 'payment'}
-          />
-          <NavLabel isActive={activeTab === 'payment'}>결제내역</NavLabel>
-          {activeTab === 'payment' && (
+          <Icon src={AlbumIcon} alt='앨범' isActive={activeTab === 'Album'} />
+          <NavLabel isActive={activeTab === 'Album'}>앨범</NavLabel>
+          {activeTab === 'Album' && (
             <IndicatorContainer>
               <Light isActive={showYellowGlow} />
             </IndicatorContainer>
@@ -114,12 +106,8 @@ const BottomNav = () => {
           isActive={activeTab === 'store'}
           onClick={() => handleClick('store', '/store')}
         >
-          <Icon
-            src={StoreIcon}
-            alt='구매마켓'
-            isActive={activeTab === 'store'}
-          />
-          <NavLabel isActive={activeTab === 'store'}>구매마켓</NavLabel>
+          <Icon src={Schedule} alt='일정' isActive={activeTab === 'store'} />
+          <NavLabel isActive={activeTab === 'store'}>일정</NavLabel>
           {activeTab === 'store' && (
             <IndicatorContainer>
               <Light isActive={showYellowGlow} />
@@ -131,8 +119,8 @@ const BottomNav = () => {
           isActive={activeTab === 'menu'}
           onClick={() => handleClick('menu', '/menu')}
         >
-          <Icon src={MenuIcon} alt='전체' isActive={activeTab === 'menu'} />
-          <NavLabel isActive={activeTab === 'menu'}>전체</NavLabel>
+          <Icon src={Mypage} alt='마이페이지' isActive={activeTab === 'menu'} />
+          <NavLabel isActive={activeTab === 'menu'}>마이페이지</NavLabel>
           {activeTab === 'menu' && (
             <IndicatorContainer>
               <Light isActive={showYellowGlow} />
@@ -151,7 +139,7 @@ const BottomNavContainer = styled.nav`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.Black};
+  background-color: ${({ theme }) => theme.colors.green4};
   padding: 12px 0;
   width: 100%;
   max-width: 600px;
