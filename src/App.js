@@ -9,6 +9,7 @@ import BottomNav from './components/BottomNav.js';
 import { ThemeProvider } from 'styled-components';
 import { Theme } from './styles/Theme.js';
 import Join from './page/Join.js';
+import MyPage from './page/MyPage.js';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path='/albumList' element={<AlbumList />} />
             <Route path='/albumDetail/:id' element={<AlbumDetail />} />
             <Route path='/auth/signin' element={<Join />} />
+            <Route path='/mypage' element={<MyPage />} />
           </Routes>
         </div>
         <BottomNav />
