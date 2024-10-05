@@ -28,9 +28,9 @@ Axios.interceptors.request.use(
 
     // 쿠키가 존재할 경우에만 accessToken을 추출하고, Authorization 헤더에 추가
     if (AccessToken) {
-      const accessToken = AccessToken.split('=')[1];
-      if (accessToken) {
-        config.headers['Authorization'] = `Bearer ${accessToken}`; // accessToken을 Authorization 헤더에 추가
+      const AccessToken = AccessToken.split('=')[1];
+      if (AccessToken) {
+        config.headers['Authorization'] = `Bearer ${AccessToken}`; // accessToken을 Authorization 헤더에 추가
       }
     }
 
