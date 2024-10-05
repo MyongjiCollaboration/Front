@@ -100,7 +100,6 @@ const MenuList = styled.div`
   align-items: center;
   width: 100%;
   gap: 16px;
-  margin-top: 20px;
 `;
 
 const MenuItem = styled.div`
@@ -138,8 +137,8 @@ const Footer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 50px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 50px;
   gap: 20px;
 `;
 
