@@ -4,6 +4,7 @@ import Login from './page/Login.js';
 import AlbumDetail from './page/AlbumDetail.js';
 import AlbumList from './page/AlbumList.js';
 import Diary from './page/Diary.js';
+import Schedule from './page/Schedule.js';
 import Home from './page/Home.js';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BottomNav from './components/BottomNav.js';
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Login />} />
             <Route path='/diary' element={<Diary />} />
+            <Route path='/schedule' element={<Schedule />} />
             <Route path='/home' element={<Home />} />
             <Route path='/albumList' element={<AlbumList />} />
             <Route path='/albumDetail/:id' element={<AlbumDetail />} />
