@@ -5,7 +5,7 @@ import AlbumDetail from './page/AlbumDetail.js';
 import AlbumList from './page/AlbumList.js';
 import Diary from './page/Diary.js';
 import Schedule from './page/Schedule.js';
-import Home from './page/Home.js';
+import Home from './page/home.js';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BottomNav from './components/BottomNav.js';
 import { ThemeProvider } from 'styled-components';

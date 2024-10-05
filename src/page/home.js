@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import Theme from '../styles/Theme.js';
 import Header from '../components/Header.js';
 
-const Home = () => {
+const home = () => {
   const [inputValue, setInputValue] = useState('');
   const [answers, setAnswers] = useState([
     { nickname: '아빠', answer: '윤도현 - 사랑했나봐' },
@@ -57,7 +57,7 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default home;
 
 // Styled Components
 const Container = styled.div`
