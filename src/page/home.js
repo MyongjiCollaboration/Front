@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import Theme from '../styles/Theme';
-import BackButtonIcon from '../img/Bottombar/BackButton.svg';
-import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header.js';
 
 const Home = () => {
   const [inputValue, setInputValue] = useState('');
@@ -12,8 +11,6 @@ const Home = () => {
     { nickname: '아들', answer: '아빠 미안해...' },
     { nickname: '딸', answer: '윤도현 노래?' },
   ]);
-
-  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -30,14 +27,11 @@ const Home = () => {
   return (
     <ThemeProvider theme={Theme}>
       <Container>
-        <Header navigate={navigate} />
-        <DateText>2024년 10월 5일 토요일</DateText>
-
+        <Header title='퀴즈' /> <DateText>2024년 10월 5일 토요일</DateText>
         <QuestionBox>
           <QuestionLabel>문제</QuestionLabel>
           <QuestionText>아빠가 가장 좋아하는 노래는?</QuestionText>
         </QuestionBox>
-
         <AnswerBox>
           <AnswerLabel>답변</AnswerLabel>
           <AnswerList>
@@ -49,7 +43,6 @@ const Home = () => {
             ))}
           </AnswerList>
         </AnswerBox>
-
         <InputForm onSubmit={handleSubmit}>
           <InputField
             type='text'
@@ -66,15 +59,6 @@ const Home = () => {
 
 export default Home;
 
-const Header = ({ navigate }) => (
-  <HeaderContainer>
-    <BackButton onClick={() => navigate(-1)}>
-      <BackButtonImage src={BackButtonIcon} alt='Back' />
-    </BackButton>
-    <Title>퀴즈</Title>
-  </HeaderContainer>
-);
-
 // Styled Components
 const Container = styled.div`
   max-width: 600px;
@@ -86,34 +70,6 @@ const Container = styled.div`
   min-height: 100vh;
   background-color: ${({ theme }) => theme.colors.white};
   box-sizing: border-box;
-`;
-
-const HeaderContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-  position: relative;
-`;
-
-const BackButton = styled.button`
-  position: absolute;
-  left: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-`;
-
-const BackButtonImage = styled.img`
-  width: 24px;
-  height: 24px;
-`;
-
-const Title = styled.h1`
-  font-size: 20px;
-  font-weight: bold;
-  color: ${({ theme }) => theme.colors.black};
 `;
 
 const DateText = styled.div`
