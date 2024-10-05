@@ -20,6 +20,7 @@ function App() {
             <Route path='/home' element={<Home />} />
             <Route path='/albumList' element={<AlbumList />} />
             <Route path='/albumDetail/:id' element={<AlbumDetail />} />
+            <Route path='/auth/signin' element={<Join />} />
           </Routes>
         </div>
         <BottomNav />
