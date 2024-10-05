@@ -12,23 +12,26 @@ Axios.interceptors.response.use(
     return response;
   },
   async (error) => {
-    if (window.location.pathname === '/login') {
+    if (window.location.pathname === '/') {
       return Promise.reject(error);
     }
     return Promise.reject(error);
   }
 );
 
-// 요청 인터셉터에서 쿠키 추가
+// 요청 인터셉터에서 AccessToken 쿠키 추가
 Axios.interceptors.request.use(
   (config) => {
-    const token = document.cookie // 또는 localStorage에서 쿠키나 토큰을 가져옴
+    const AccessToken = document.cookie // 쿠키에서 AccessToken을 가져옴
       .split('; ')
-      .find((row) => row.startsWith('token='))
-      ?.split('=')[1];
+      .find((row) => row.startsWith('AccessToken=')); // AccessToken으로 시작하는 쿠키 찾기
 
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`; // 토큰이 있을 경우 헤더에 추가
+    // 쿠키가 존재할 경우에만 accessToken을 추출하고, Authorization 헤더에 추가
+    if (AccessToken) {
+      const accessToken = AccessToken.split('=')[1];
+      if (accessToken) {
+        config.headers['Authorization'] = `Bearer ${accessToken}`; // accessToken을 Authorization 헤더에 추가
+      }
     }
 
     return config;
