@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import Theme from '../styles/Theme';
+import BackButtonIcon from '../img/Bottombar/BackButton.svg';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const [inputValue, setInputValue] = useState('');
@@ -10,6 +12,8 @@ const Home = () => {
     { nickname: '아들', answer: '아빠 미안해...' },
     { nickname: '딸', answer: '윤도현 노래?' },
   ]);
+
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -26,11 +30,7 @@ const Home = () => {
   return (
     <ThemeProvider theme={Theme}>
       <Container>
-        <Header>
-          <BackButton>←</BackButton>
-          <Title>퀴즈</Title>
-        </Header>
-
+        <Header navigate={navigate} />
         <DateText>2024년 10월 5일 토요일</DateText>
 
         <QuestionBox>
@@ -66,6 +66,15 @@ const Home = () => {
 
 export default Home;
 
+const Header = ({ navigate }) => (
+  <HeaderContainer>
+    <BackButton onClick={() => navigate(-1)}>
+      <BackButtonImage src={BackButtonIcon} alt='Back' />
+    </BackButton>
+    <Title>퀴즈</Title>
+  </HeaderContainer>
+);
+
 // Styled Components
 const Container = styled.div`
   max-width: 600px;
@@ -79,19 +88,26 @@ const Container = styled.div`
   box-sizing: border-box;
 `;
 
-const Header = styled.div`
+const HeaderContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  position: relative;
 `;
 
 const BackButton = styled.button`
+  position: absolute;
+  left: 0;
   background: none;
   border: none;
-  font-size: 24px;
   cursor: pointer;
+`;
+
+const BackButtonImage = styled.img`
+  width: 24px;
+  height: 24px;
 `;
 
 const Title = styled.h1`
