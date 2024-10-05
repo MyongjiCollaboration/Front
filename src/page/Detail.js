@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import MyProfile from '../img/Bottombar/Myprofile.svg';
+import Header from '../components/Header';
 
 const Detail = () => {
   const [familyName, setFamilyName] = useState('');
@@ -29,10 +30,11 @@ const Detail = () => {
 
   return (
     <Container>
-      <Header>
+      {/* <Header>
         <BackButton onClick={() => navigate('/mypage')}>&lt;</BackButton>
         <Title>가족 이름 수정</Title>
-      </Header>
+      </Header> */}
+      <Header title='가족 이름 수정' />
       <ProfileSection>
         <ProfileImage src={MyProfile} alt='프로필 이미지' />
         <ProfileText>
@@ -81,30 +83,6 @@ const Container = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.Black};
 `;
 
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 16px;
-  background-color: #fff;
-  border-bottom: 1px solid #eaeaea;
-`;
-
-const BackButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-`;
-
-const Title = styled.h1`
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  flex-grow: 1;
-`;
-
 const ProfileSection = styled.div`
   display: flex;
   align-items: center;
@@ -139,9 +117,9 @@ const FormContainer = styled.div`
   width: 100%;
   max-width: 400px;
   padding: 20px;
-  border: 2px solid ${({ theme }) => theme.colors.green3}; /* 테두리 색상 변경 */
+  border: 2px solid ${({ theme }) => theme.colors.green3}
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   background-color: #fff;
 `;
 

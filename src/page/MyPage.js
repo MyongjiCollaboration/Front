@@ -7,14 +7,12 @@ import Mydiary from '../img/Bottombar/Mydiary.svg';
 import Profilechange from '../img/Bottombar/Profilechange.svg';
 import Logout from '../img/Bottombar/Logout.svg';
 import Dropout from '../img/Bottombar/Dropout.svg';
+import Header from '../components/Header';
 
 const MyPage = () => {
   return (
     <Container>
-      <Header>
-        <BackButton>&lt;</BackButton>
-        <Title>마이페이지</Title>
-      </Header>
+      <Header title='마이페이지' />
       <ProfileSection>
         <ProfileImage src={MyProfile} alt='프로필 이미지' />
         <ProfileText>
@@ -64,30 +62,6 @@ const Container = styled.div`
   padding: 20px;
   box-sizing: border-box;
   border: 1px solid ${({ theme }) => theme.colors.Black};
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 16px;
-  background-color: #fff;
-  border-bottom: 1px solid #eaeaea;
-`;
-
-const BackButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-`;
-
-const Title = styled.h1`
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  flex-grow: 1;
 `;
 
 const ProfileSection = styled.div`
