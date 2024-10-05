@@ -59,7 +59,7 @@ const Hint = styled.div`
 `;
 
 const SuccessMessage = styled.div`
-  color: ${({ theme }) => theme.colors.check};
+  color: ${({ theme }) => theme.colors.green2};
   margin-top: 10px;
   ${({ theme }) => theme.fonts.helpText12};
 `;

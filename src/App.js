@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BottomNav from './components/BottomNav.js';
 import { ThemeProvider } from 'styled-components';
 import { Theme } from './styles/Theme.js';
+import Join from './page/Join.js';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path='/' element={<Login />} />
             <Route path='/home' element={<Home />} />
             <Route path='/album' element={<Album />} />
+            <Route path='/auth/signin' element={<Join />} />
           </Routes>
         </div>
         <BottomNav />
