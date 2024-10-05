@@ -10,11 +10,11 @@ const BigButton = ({ disabled, onClick, children }) => {
 };
 
 const Btn = styled.button`
-  width: 400px;
+  width: 300px;
   height: 60px;
   border-radius: 10px;
   background-color: ${({ disabled, theme }) =>
-    disabled ? theme.colors.gray : theme.colors.green2};
+    disabled ? theme.colors.gray : theme.colors.green4};
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.bigButtonText};
 `;

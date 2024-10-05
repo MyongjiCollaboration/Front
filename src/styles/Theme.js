@@ -49,7 +49,7 @@ export const Theme = {
     green8: '#D4F3D4',
     Black: '#000000',
     white: '#FFFFFF',
-    gray: '#808080',
+    gray: '#D5D5D5',
     red: '#FD0103',
     blue: 'blue',
   },

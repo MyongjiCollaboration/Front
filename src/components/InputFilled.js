@@ -34,8 +34,8 @@ const InputContainer = styled.div`
 `;
 
 const Filled = styled.input`
-  width: 400px;
-  min-height: 60px;
+  width: 300px;
+  min-height: 30px;
   border: 1px solid ${({ theme }) => theme.colors.white};
   border-radius: 10px;
   ${({ theme }) => theme.fonts.default};

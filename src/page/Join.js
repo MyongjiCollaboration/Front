@@ -151,7 +151,7 @@ const Join = () => {
               hint={
                 passwordError
                   ? ''
-                  : '영문, 숫자, 특수문자를 조합하여 8~14글자 미만으로 입력하시오.'
+                  : '영문, 숫자, 특수문자를 조합하여 8~14글자로 입력하시오.'
               }
               error={passwordError}
               success={passwordSuccess}
@@ -224,7 +224,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f5f5f5;
+
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
@@ -240,7 +240,7 @@ const CenteredBox = styled.div`
 `;
 
 const AllBox = styled.div`
-  width: 400px;
+  width: 300px;
   padding: 40px;
   display: flex;
   align-items: center;
@@ -255,7 +255,6 @@ const FormContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  gap: 20px;
 `;
 
 const Title = styled.h1`

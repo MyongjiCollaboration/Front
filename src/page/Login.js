@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import * as Yup from 'yup';
 import InputFilled from '../components/InputFilled';
 import BigButton from '../components/BigButton';
-import BottomNav from '../components/BottomNav';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -123,7 +122,6 @@ const PageContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 100vh;
-  background-color: #f5f5f5;
   position: relative;
   max-width: 600px;
   margin: 0 auto;
@@ -142,7 +140,7 @@ const FormBox = styled.div`
   flex-direction: column;
   align-items: center;
   width: 90%;
-  max-width: 400px;
+  max-width: 300px;
   margin-top: 10vh;
 `;
 
