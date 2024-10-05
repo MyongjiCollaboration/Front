@@ -18,7 +18,7 @@ const MyPage = () => {
         <ProfileImage src={MyProfile} alt='프로필 이미지' />
         <ProfileText>
           <UserName>김명지</UserName>
-          <FamilyCode>(가족코드)</FamilyCode>
+          <FamilyCode>가족이름(가족코드)</FamilyCode>
         </ProfileText>
       </ProfileSection>
       <MenuList>
