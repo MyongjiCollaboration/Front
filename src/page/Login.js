@@ -113,7 +113,6 @@ const Login = () => {
           </Link>
         </SignUp>
       </FormBox>
-      <BottomNav />
     </PageContainer>
   );
 };
