@@ -50,6 +50,7 @@ export const Theme = {
     Black: '#000000',
     white: '#FFFFFF',
     gray: '#808080',
+    red: '#FD0103',
   },
   breakpoints: {
     mobile: '480px',
