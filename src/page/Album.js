@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import Theme from '../styles/Theme';
+import MagnifierIcon from '../img/Bottombar/Magnifier.svg';
+import DeleteIcon from '../img/Bottombar/delete.png';
 
 const Album = () => {
   const [albums, setAlbums] = useState([]);
@@ -26,6 +28,10 @@ const Album = () => {
     setSearchTerm(event.target.value);
   };
 
+  const handleDeleteImage = (indexToRemove) => {
+    setAlbums(albums.filter((_, index) => index !== indexToRemove));
+  };
+
   const filteredAlbums = albums.filter((album) =>
     album.date.includes(searchTerm)
   );
@@ -34,35 +40,45 @@ const Album = () => {
     <ThemeProvider theme={Theme}>
       <Container>
         <SearchBarWrapper>
-          <SearchInput
-            type='text'
-            placeholder='날짜로 검색 (예: 2024.10.05)'
-            value={searchTerm}
-            onChange={handleSearch}
-          />
+          <SearchInputWrapper>
+            <SearchInput
+              type='text'
+              placeholder='날짜로 검색 (예: 2024.10.05)'
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+            <Magnifier src={MagnifierIcon} alt='Search' />
+          </SearchInputWrapper>
         </SearchBarWrapper>
 
-        <Gallery>
-          {filteredAlbums.map((album, index) => (
-            <ImageContainer key={index}>
-              <ImageLabel>{album.date}</ImageLabel> {/* 날짜 표시 */}
-              <ImagePreview src={album.url} alt={`img-${index}`} />
-            </ImageContainer>
-          ))}
+        <AlbumLabel>내 앨범</AlbumLabel>
 
-          <AlbumBox onClick={handleAlbumBoxClick}>
-            <AddAlbumIcon>+</AddAlbumIcon>
-            <AddAlbumText>앨범을 추가해주세요</AddAlbumText>
-            <input
-              type='file'
-              multiple
-              accept='image/*'
-              onChange={handleAddImage}
-              style={{ display: 'none' }}
-              ref={fileInputRef}
-            />
-          </AlbumBox>
-        </Gallery>
+        <GalleryWrapper>
+          <Gallery>
+            <AlbumBox onClick={handleAlbumBoxClick}>
+              <AddAlbumIcon>+</AddAlbumIcon>
+              <AddAlbumText>앨범을 추가해주세요</AddAlbumText>
+              <input
+                type='file'
+                multiple
+                accept='image/*'
+                onChange={handleAddImage}
+                style={{ display: 'none' }}
+                ref={fileInputRef}
+              />
+            </AlbumBox>
+
+            {filteredAlbums.map((album, index) => (
+              <ImageContainer key={index}>
+                <ImageLabel>{album.date}</ImageLabel>
+                <ImagePreview src={album.url} alt={`img-${index}`} />
+                <DeleteButton onClick={() => handleDeleteImage(index)}>
+                  <DeleteIconImage src={DeleteIcon} alt='Delete' />
+                </DeleteButton>
+              </ImageContainer>
+            ))}
+          </Gallery>
+        </GalleryWrapper>
       </Container>
     </ThemeProvider>
   );
@@ -72,6 +88,7 @@ export default Album;
 
 // Styled Components
 const Container = styled.div`
+  width: 100%;
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
@@ -86,20 +103,53 @@ const Container = styled.div`
 const SearchBarWrapper = styled.div`
   width: 100%;
   margin-bottom: 20px;
+  padding: 0 10px;
+`;
+
+const SearchInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1px solid ${({ theme }) => theme.colors.green1};
+  border-radius: 5px;
+  padding: 10px;
 `;
 
 const SearchInput = styled.input`
-  width: 100%;
-  padding: 10px;
+  width: 90%;
   font-size: 16px;
-  border: 1px solid ${({ theme }) => theme.colors.gray};
-  border-radius: 5px;
+  border: none;
+  outline: none;
+`;
+
+const Magnifier = styled.img`
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
+  cursor: pointer;
+`;
+
+const AlbumLabel = styled.h2`
+  width: 100%;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: left;
+  color: ${({ theme }) => theme.colors.black};
+`;
+
+const GalleryWrapper = styled.div`
+  width: 100%;
+  height: 80vh;
+  overflow-y: auto;
+  padding-right: 10px;
 `;
 
 const Gallery = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 50px;
   width: 100%;
 `;
 
@@ -138,7 +188,8 @@ const AddAlbumText = styled.p`
 
 const ImageContainer = styled.div`
   position: relative;
-  width: 250px;
+  width: 100%;
+  max-width: 250px;
   height: 250px;
   border-radius: 10px;
   overflow: hidden;
@@ -162,4 +213,19 @@ const ImagePreview = styled.img`
   height: 100%;
   object-fit: cover;
   border-radius: 10px;
+`;
+
+const DeleteButton = styled.button`
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 2;
+`;
+
+const DeleteIconImage = styled.img`
+  width: 24px;
+  height: 24px;
 `;
