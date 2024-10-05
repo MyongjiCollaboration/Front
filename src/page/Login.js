@@ -126,6 +126,12 @@ const PageContainer = styled.div`
   height: 100vh;
   background-color: #f5f5f5;
   position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  border: 1px solid ${({ theme }) => theme.colors.Black};
 `;
 
 const FormBox = styled.div`
